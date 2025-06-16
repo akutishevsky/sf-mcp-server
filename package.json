@@ -1,0 +1,27 @@
+{
+    "name": "sf-mcp-server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./src/index.ts",
+    "scripts": {
+        "build": "tsc && chmod 755 build/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "bin": {
+        "sf-mcp-server": "./build/index.js"
+    },
+    "files": [
+        "build"
+    ],
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.12.3",
+        "zod": "^3.25.64"
+    },
+    "devDependencies": {
+        "@types/node": "^24.0.1",
+        "typescript": "^5.8.3"
+    }
+}
