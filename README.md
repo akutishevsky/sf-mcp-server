@@ -1,0 +1,1 @@
+This is the source code of the step-by-step buide on implementing the simple Salesforce MCP server described [in this article](https://medium.com/@akutishevsky/how-to-build-a-simple-salesforce-mcp-server-with-node-js-a-step-by-step-guide-43fe2c7b9630).
