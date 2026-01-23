@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-// Importing exec from node:child_process to execute shell commands
+// Importing execFile from node:child_process to execute shell commands
 import { execFile } from "node:child_process";
 
 const server = new McpServer({
@@ -49,7 +49,7 @@ const executeSoqlQuery = async (
     fields: string,
     where?: string,
     orderBy?: string,
-    limit?: number
+    limit?: number,
 ) => {
     let query = `SELECT ${fields} FROM ${sObject}`;
 
@@ -119,7 +119,7 @@ server.tool(
             fields,
             where,
             orderBy,
-            limit
+            limit,
         );
 
         return {
@@ -130,7 +130,7 @@ server.tool(
                 },
             ],
         };
-    }
+    },
 );
 
 async function main() {
