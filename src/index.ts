@@ -7,7 +7,7 @@ import { execFile } from "node:child_process";
 const server = new McpServer(
     {
         name: "sf-mcp-server",
-        version: "1.0.1",
+        version: "1.0.2",
     },
     {
         capabilities: {
