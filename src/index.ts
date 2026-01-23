@@ -4,13 +4,17 @@ import { z } from "zod";
 // Importing execFile from node:child_process to execute shell commands
 import { execFile } from "node:child_process";
 
-const server = new McpServer({
-    name: "sf-mcp-server",
-    version: "1.0.0",
-    capabilities: {
-        tools: {},
+const server = new McpServer(
+    {
+        name: "sf-mcp-server",
+        version: "1.0.1",
     },
-});
+    {
+        capabilities: {
+            tools: {},
+        },
+    },
+);
 
 const listConnectedSalesforceOrgs = async () => {
     return new Promise((resolve, reject) => {
