@@ -35,7 +35,7 @@ const listConnectedSalesforceOrgs = async () => {
     });
 };
 
-server.tool("list_connected_salesforce_orgs", {}, async () => {
+server.registerTool("list_connected_salesforce_orgs", {}, async () => {
     const orgList = await listConnectedSalesforceOrgs();
     return {
         content: [
@@ -89,11 +89,11 @@ const executeSoqlQuery = async (
     });
 };
 
-server.tool(
+server.registerTool(
     "query_records",
-    "Execute a SOQL query in Salesforce Org",
     {
-        input: z.object({
+        description: "Execute a SOQL query in Salesforce Org",
+        inputSchema: z.object({
             targetOrg: z
                 .string()
                 .describe("Target Salesforce Org to execute the query against"),
@@ -115,8 +115,7 @@ server.tool(
                 .describe("Optional limit for the number of records returned"),
         }),
     },
-    async ({ input }) => {
-        const { targetOrg, sObject, fields, where, orderBy, limit } = input;
+    async ({ targetOrg, sObject, fields, where, orderBy, limit }) => {
         const result = await executeSoqlQuery(
             targetOrg,
             sObject,
