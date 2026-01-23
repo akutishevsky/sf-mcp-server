@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 // Importing exec from node:child_process to execute shell commands
-import { exec } from "node:child_process";
+import { execFile } from "node:child_process";
 
 const server = new McpServer({
     name: "sf-mcp-server",
@@ -14,7 +14,7 @@ const server = new McpServer({
 
 const listConnectedSalesforceOrgs = async () => {
     return new Promise((resolve, reject) => {
-        exec("sf org list --json", (error, stdout, stderr) => {
+        execFile("sf", ["org", "list", "--json"], (error, stdout, stderr) => {
             if (error) {
                 return reject(error);
             }
@@ -57,10 +57,18 @@ const executeSoqlQuery = async (
     if (limit) query += " LIMIT " + limit;
     if (orderBy) query += " ORDER BY " + orderBy;
 
-    const sfCommand = `sf data query --target-org ${targetOrg} --query "${query}" --json`;
+    const args = [
+        "data",
+        "query",
+        "--target-org",
+        targetOrg,
+        "--query",
+        query,
+        "--json",
+    ];
 
     return new Promise((resolve, reject) => {
-        exec(sfCommand, (error, stdout, stderr) => {
+        execFile("sf", args, (error, stdout, stderr) => {
             if (error) {
                 return reject(error);
             }
