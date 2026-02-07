@@ -7,7 +7,7 @@ import { execa } from "execa";
 const server = new McpServer(
     {
         name: "sf-mcp-server",
-        version: "1.0.2",
+        version: "1.0.3",
     },
     {
         capabilities: {
