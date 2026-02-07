@@ -1,8 +1,8 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-// Importing execFile from node:child_process to execute shell commands
-import { execFile } from "node:child_process";
+// import execa to replace execFile for cross-platform command execution
+import { execa } from "execa";
 
 const server = new McpServer(
     {
@@ -18,13 +18,9 @@ const server = new McpServer(
 
 const listConnectedSalesforceOrgs = async () => {
     return new Promise((resolve, reject) => {
-        execFile("sf", ["org", "list", "--json"], (error, stdout, stderr) => {
-            if (error) {
-                return reject(error);
-            }
-            if (stderr) {
-                return reject(new Error(stderr));
-            }
+        // use execa instead of execFile, keeping argument array style
+        execa("sf", ["org", "list", "--json"])  
+            .then(({ stdout }) => {
             try {
                 const result = JSON.parse(stdout);
                 resolve(result);
@@ -72,13 +68,9 @@ const executeSoqlQuery = async (
     ];
 
     return new Promise((resolve, reject) => {
-        execFile("sf", args, (error, stdout, stderr) => {
-            if (error) {
-                return reject(error);
-            }
-            if (stderr) {
-                return reject(new Error(stderr));
-            }
+        // use execa instead of execFile, keeping argument array style
+        execa("sf", args)  
+            .then(({ stdout }) => {
             try {
                 const result = JSON.parse(stdout);
                 resolve(result.result.records || []);
